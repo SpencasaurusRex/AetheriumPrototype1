@@ -39,7 +39,7 @@ public class Turret : MonoBehaviour
         
         var bulletObj = Instantiate(BulletPrefab);
         bulletObj.transform.position = rotationVector * BulletCreationRadius + (Vector2)transform.position;
-        var bullet = bulletObj.GetComponent<Bullet>();
+        var bullet = bulletObj.GetComponent<Projectile>();
         bullet.Lifetime = 5f;
         
         var bulletRb = bulletObj.GetComponent<Rigidbody2D>();
