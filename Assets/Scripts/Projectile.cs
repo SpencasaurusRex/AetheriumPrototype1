@@ -20,7 +20,7 @@ public class Projectile : MonoBehaviour
         Lifetime -= Time.deltaTime;
         if (Lifetime <= 0)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
     }
 
@@ -35,7 +35,9 @@ public class Projectile : MonoBehaviour
             bool clockwise = Util.RotateTowardsAngleRadians(currentAngle, targetAngle);
 
             var rotation = (clockwise ? -1 : 1) * RotationSpeed;
-            rb.velocity = rb.velocity.normalized.Rotate(rotation * Time.fixedDeltaTime) * Speed;
+            Vector2 vel = rb.velocity.normalized.Rotate(rotation * Time.fixedDeltaTime) * Speed;
+            rb.velocity = vel;
+            transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(vel.y, vel.x) * Mathf.Rad2Deg);
         }
     }
 

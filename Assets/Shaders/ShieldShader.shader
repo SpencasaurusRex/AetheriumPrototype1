@@ -7,6 +7,8 @@
         _Falloff ("Falloff", Float) = 3
         _BorderWidth ("BorderWidth", Float) = .01
         _BorderStrength ("BorderStrength", Float) = .01
+        _Rows ("Rows", Float) = 32
+        _Cols ("Cols", Float) = 32
     }
     SubShader
     {
@@ -39,6 +41,8 @@
             float _Falloff;
             float _BorderWidth;
             float _BorderStrength;
+            float _Rows;
+            float _Cols;
 
             v2f vert (appdata v)
             {
@@ -50,8 +54,13 @@
 
             float4 frag (v2f i) : SV_Target
             {
+                float2 pixels = float2(_Rows, _Cols);
+                float2 uv = i.uv * pixels;
+                uv = round(uv);
+                uv /= pixels;
+            
                 fixed4 c = tex2D(_MainTex, i.uv);
-                float dist = length(float2(i.uv) - float2(0.5, 0.5));
+                float dist = length(float2(uv) - float2(0.5, 0.5));
                 if (dist > 0.5)
                 {
                     return float4(0, 0, 0, 0);
