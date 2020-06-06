@@ -9,6 +9,8 @@ public class Engine : MonoBehaviour
     public float CancelRotationBonus = 1f;
     public float SidewaysCancel = .95f; // TODO: Change to acceleration rather than friction force
 
+    // TODO: Implement max vel and angular vel, possibly as some multiplier of Thrust and RotationalThrust
+    
     // Runtime
     Rigidbody2D rb;
     float thrustForce;
@@ -41,6 +43,8 @@ public class Engine : MonoBehaviour
             rotationBonus = CancelRotationBonus;
         }
         torque = rotationInput * RotationalThrust * (1 + rotationBonus);
+        
+        // TODO: Automatically cancel rotation if not holding rotate
     }
     
     void FixedUpdate()

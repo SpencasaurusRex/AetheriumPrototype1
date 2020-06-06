@@ -65,4 +65,9 @@ public class WeaponMount : MonoBehaviour
     {
         weapon.TryShoot();
     }
+
+    public void ReleaseShot()
+    {
+        weapon.ReleaseShot();
+    }
 }

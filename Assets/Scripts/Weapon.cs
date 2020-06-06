@@ -9,12 +9,16 @@ public class Weapon : MonoBehaviour
     public float BulletVelocity;
     public bool Homing;
     public float DetectionRange;
+    public bool BeamMode;
 
     // Runtime
     float currentCooldown;
     Rigidbody2D rb;
     int shotCount;
     Ship ship;
+    bool beamShot;
+
+    GameObject BeamProjectile;
     
     void Start()
     {
@@ -33,20 +37,51 @@ public class Weapon : MonoBehaviour
     {
         if (currentCooldown <= 0)
         {
-            shotCount++;
-            currentCooldown = MaxCooldown;
-            return true;
+            if (BeamMode)
+            {
+                beamShot = true;
+            }
+            else
+            {
+                shotCount++;
+                currentCooldown = MaxCooldown;
+                return true;    
+            }
         }
 
         return false;
     }
 
+    public void ReleaseShot()
+    {
+        beamShot = false;
+        if (BeamProjectile)
+        {
+            Destroy(BeamProjectile);
+        }
+    }
+
     void FixedUpdate()
     {
-        while (shotCount > 0)
+        if (BeamMode && beamShot)
         {
-            Shoot();
-            shotCount--;
+            if (!BeamProjectile)
+            {
+                BeamProjectile = Instantiate(ProjectilePrefab);
+                BeamProjectile.layer = gameObject.layer;
+            }
+
+            Transform beamTransform = BeamProjectile.transform; 
+            beamTransform.position = ProjectileSpawnLocation.position;
+            beamTransform.rotation = ProjectileSpawnLocation.rotation;
+        }
+        else
+        {
+            while (shotCount > 0)
+            {
+                Shoot();
+                shotCount--;
+            }
         }
     }
 

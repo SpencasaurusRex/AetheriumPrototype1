@@ -8,16 +8,21 @@ public class Ship : MonoBehaviour
     Engine engine;
     public WeaponMount[] weapons;
     public List<Collider2D> Colliders = new List<Collider2D>();
-    
+
     // Runtime variables
     float bulletCooldown;
 
     void Start()
     {
         engine = GetComponent<Engine>();
-        weapons = GetComponentsInChildren<WeaponMount>();
+        GetWeapons();
         
         Colliders.AddRange(GetComponentsInChildren<Collider2D>());
+    }
+
+    public void GetWeapons()
+    {
+        weapons = GetComponentsInChildren<WeaponMount>();
     }
 
     public void Control(float thrustInput, float rotationInput)

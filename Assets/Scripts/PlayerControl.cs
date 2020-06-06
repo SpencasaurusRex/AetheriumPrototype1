@@ -10,11 +10,13 @@ public class PlayerControl : MonoBehaviour
     void Start()
     {
         ship = GetComponent<Ship>();
+        ship.GetWeapons();
         SwapWeapon(assignedIndex);
     }
 
     void SwapWeapon(int index)
     {
+        if (assignedWeapon) assignedWeapon.ReleaseShot();
         assignedWeapon = ship.weapons[index];
     }
 
@@ -23,9 +25,14 @@ public class PlayerControl : MonoBehaviour
         ship.Control(Input.GetAxisRaw("Vertical"), Input.GetAxisRaw("Horizontal"));
         
         
-        if (Input.GetKey(KeyCode.Space))
+        // if (Input.GetKey(KeyCode.Space))
         {
             assignedWeapon.TryShoot();
+        }
+        // else 
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            assignedWeapon.ReleaseShot();
         }
 
         assignedWeapon.ManualTargetSet = true;
