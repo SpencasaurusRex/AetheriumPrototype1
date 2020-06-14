@@ -1,18 +1,30 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class Projectile : MonoBehaviour
 {
+    public Damage Damage;
     public float Lifetime;
+    
+    // TODO: Damage over distance curve?
 
     public Transform Target;
     public float RotationSpeed;
     public float Speed;
-
+    
+    Light2D light;
     Rigidbody2D rb;
-
+    Animator anim;
+    static readonly int Hit = Animator.StringToHash("Hit");
+    Collider2D collider;
+    
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
+        collider = GetComponent<Collider2D>();
+        light = GetComponent<Light2D>();
     }
 
     void Update()
@@ -22,6 +34,7 @@ public class Projectile : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        Debug.Log(anim.GetCurrentAnimatorStateInfo(0).length);
     }
 
     void FixedUpdate()
@@ -43,10 +56,32 @@ public class Projectile : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-
-        var ship = other.gameObject.GetComponent<Ship>();
-        if (ship != null) ship.BulletCollision(10f);
+        anim.SetTrigger(Hit);
         
+        var ship = other.gameObject.GetComponent<Ship>();
+        if (ship != null) ship.ProjectileCollision(Damage);
+
+        var bulletRb = other.otherRigidbody;
+
+        bulletRb.velocity = other.rigidbody.velocity;
+        bulletRb.angularVelocity = 0;
+        
+        var contactPoint = other.GetContact(0);
+
+        transform.position = contactPoint.point;
+        transform.rotation = Quaternion.Euler(0, 0, contactPoint.normal.Angle() * Mathf.Rad2Deg + 180f);
+        
+        collider.enabled = false;
+        StartCoroutine(DestroyAfterAnimation());
+        var fadeout = gameObject.AddComponent<FadeoutLight>();
+        Debug.Log(anim.GetCurrentAnimatorStateInfo(0).length);
+        fadeout.FadeTime = 0.2f;
+        enabled = false;
+    }
+
+    IEnumerator DestroyAfterAnimation()
+    {
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1 && !anim.IsInTransition(0));
         Destroy(gameObject);
     }
 }

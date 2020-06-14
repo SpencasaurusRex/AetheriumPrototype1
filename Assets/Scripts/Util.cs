@@ -17,6 +17,11 @@ public static class Util
         return v;
     }
 
+    public static float Angle(this Vector2 v)
+    {
+        return Mathf.Atan2(v.y, v.x);
+    }
+
     public static float NormalizeAngleDegrees(float degrees)
     {
         while (degrees < 0) degrees += 360;
@@ -45,8 +50,10 @@ public static class Util
 
     public static int GetOpposingTeamLayerMask(int teamLayer)
     {
-        int allTeams = LayerMask.GetMask("Team1", "Team2", "Team3", "Team4");
-        return allTeams - LayerMask.GetMask(LayerMask.LayerToName(teamLayer));
+        int allTeams = LayerMask.GetMask("Team1", "Team2", "Team3", "Team4", 
+            "Team1Shield", "Team2Shield", "Team3Shield", "Team4Shield");
+        return allTeams - LayerMask.GetMask(LayerMask.LayerToName(teamLayer))
+        - LayerMask.GetMask(LayerMask.LayerToName(teamLayer + 4));
     }
 
     /// <returns>Whether or not to rotate clockwise</returns>

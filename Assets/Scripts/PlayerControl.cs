@@ -25,12 +25,11 @@ public class PlayerControl : MonoBehaviour
         ship.Control(Input.GetAxisRaw("Vertical"), Input.GetAxisRaw("Horizontal"));
         
         
-        // if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space))
         {
             assignedWeapon.TryShoot();
         }
-        // else 
-        if (Input.GetKeyUp(KeyCode.Space))
+        else if (Input.GetKeyUp(KeyCode.Space))
         {
             assignedWeapon.ReleaseShot();
         }

@@ -1,27 +1,43 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
+using UnityEngine.Serialization;
 
 public class Beam : MonoBehaviour
 {
-    [Header("Configuration")]
+    [Header("Configuration")] 
     public float MaxDistance;
-
-    public float LightWidth = 1f / 16f;
     
-    [Header("AutoSet")]
-    public Transform VisualTransform;
-    public Light2D Light;
+    public Light2D LightPrefab;
+
+    [FormerlySerializedAs("LightDistance")] [Range(0.5f, 5f)]
+    public float LightSpacing;
+    public float LightFalloff = 1;
+    
+    
+    [Header("AutoSet")] public Transform VisualTransform;
+
+    List<Light2D> Lights;
+    float StartingLightIntensity;
 
     void Start()
     {
+        StartingLightIntensity = LightPrefab.intensity;
+        
         if (!VisualTransform)
         {
-            VisualTransform = GetComponentsInChildren<Transform>().First(t => t != transform);   
+            VisualTransform = GetComponentsInChildren<Transform>().First(t => t != transform);
         }
-        if (!Light)
+
+        Lights = new List<Light2D>();
+        int numLights = Mathf.CeilToInt(MaxDistance / LightSpacing);
+        for (int i = 0; i < numLights; i++)
         {
-            Light = GetComponentInChildren<Light2D>();
+            
+            var l  = Instantiate(LightPrefab, transform);
+            Lights.Add(l);
+            l.transform.localPosition = new Vector3(i * LightSpacing, 0, 0);
         }
     }
 
@@ -29,7 +45,7 @@ public class Beam : MonoBehaviour
     {
         var tf = transform;
         Vector2 origin = tf.position;
-        
+
         int opposingTeams = Util.GetOpposingTeamLayerMask(gameObject.layer);
         var hit = Physics2D.Raycast(origin, tf.right, MaxDistance, opposingTeams);
 
@@ -43,15 +59,16 @@ public class Beam : MonoBehaviour
         float xScale = (hitLocation - origin).magnitude * 2 + 0.2f;
         VisualTransform.localScale = new Vector3(xScale, 1, 1);
 
-        // Unfortunately Unity does not allow us to dynamically create light boundaries
-        // Vector3 w = tf.up * LightWidth / 2;
-        // Vector3 l = tf.right * xScale;
-        // Vector3[] lightPath = new Vector3[4];
-        // lightPath[0] = tf.position - w;
-        // lightPath[1] = tf.position + w;
-        // lightPath[2] = tf.position + l + w;
-        // lightPath[3] = tf.position + l - w;
+        // Disable lights that are outside of the beam
+        float beamEnd = xScale * 0.5f;
+        for (int i = 0; i < Lights.Count; i++)
+        {
+            float lightPos = LightSpacing * i;
+            // xScale / 2 < lightPos : 0
+            // xScale / 2 + Falloff < lightPos : 0 - 1
+            // xScale / 2 + Falloff > lightPos : 1
 
-        Light.transform.localScale = new Vector3(xScale, 1, 1);
+            Lights[i].intensity = Mathf.Clamp((beamEnd - lightPos) / LightFalloff, 0, 1) * StartingLightIntensity;
+        }
     }
 }

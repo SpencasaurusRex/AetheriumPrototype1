@@ -3,10 +3,16 @@ using UnityEngine;
 
 public class Ship : MonoBehaviour
 {
+    [Header("Configuration")]
     public float Health;
-
+    public DamageModifier DamageModifier;
+    
     Engine engine;
+    Shield shield;
+    
+    [HideInInspector]
     public WeaponMount[] weapons;
+    [HideInInspector]
     public List<Collider2D> Colliders = new List<Collider2D>();
 
     // Runtime variables
@@ -15,6 +21,7 @@ public class Ship : MonoBehaviour
     void Start()
     {
         engine = GetComponent<Engine>();
+        shield = GetComponentInChildren<Shield>();
         GetWeapons();
         
         Colliders.AddRange(GetComponentsInChildren<Collider2D>());
@@ -30,9 +37,11 @@ public class Ship : MonoBehaviour
         engine.Control(thrustInput, rotationInput);
     }
 
-    public void BulletCollision(float damage)
+    public void ProjectileCollision(Damage damage)
     {
-        Health -= damage;
+        shield.TakeDamage(damage);
+        Health -= damage.Total(DamageModifier);
+
         if (Health <= 0)
         {
             Die();
