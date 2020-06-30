@@ -20,7 +20,7 @@ public class Weapon : MonoBehaviour
     public bool UsesAmmo;
     public int MaxAmmo;
     public float ReloadTime;
-    
+
     // Runtime
     int spawnIndex;
     float timeUntilReloaded;

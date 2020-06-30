@@ -2272,6 +2272,8 @@ GameObject:
   - component: {fileID: 1640707076}
   - component: {fileID: 1640707081}
   - component: {fileID: 1640707080}
+  - component: {fileID: 1640707082}
+  - component: {fileID: 1640707083}
   m_Layer: 9
   m_Name: Serenity
   m_TagString: Untagged
@@ -2404,6 +2406,31 @@ MonoBehaviour:
   CancelThrustBonus: 0.2
   CancelRotationBonus: 0.2
   SidewaysCancel: 1
+--- !u!114 &1640707082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1640707075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33e47d8bf49c4ca5a959236eb8dccb4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Groups: []
+--- !u!114 &1640707083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1640707075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90500e03c93317c45ab2fbab39796f20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1674611007
 GameObject:
   m_ObjectHideFlags: 0
