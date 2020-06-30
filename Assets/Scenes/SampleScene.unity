@@ -282,7 +282,7 @@ Transform:
   m_Children:
   - {fileID: 1705088068}
   m_Father: {fileID: 1674611010}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &303179825
 MonoBehaviour:
@@ -349,7 +349,8 @@ MonoBehaviour:
   ProjectilePrefab: {fileID: 6379950849718089022, guid: 30329f2497505a34c81c7f185a386bdd,
     type: 3}
   MaxCooldown: 0.5
-  ProjectileSpawnLocation: {fileID: 1924285006}
+  ProjectileSpawnLocation:
+  - {fileID: 0}
   BulletVelocity: 25
   Homing: 0
   DetectionRange: 0
@@ -371,7 +372,7 @@ GameObject:
   - component: {fileID: 370678405}
   - component: {fileID: 370678406}
   m_Layer: 8
-  m_Name: LaserLeft
+  m_Name: LaserMount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -439,6 +440,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2055571060}
+  - {fileID: 675655580}
   m_Father: {fileID: 370678405}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -456,14 +458,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ProjectilePrefab: {fileID: 6379950849718089022, guid: 30329f2497505a34c81c7f185a386bdd,
     type: 3}
-  MaxCooldown: 0.5
-  ProjectileSpawnLocation: {fileID: 2055571060}
+  MaxCooldown: 0.25
+  ProjectileSpawnLocation:
+  - {fileID: 2055571060}
+  - {fileID: 675655580}
   BulletVelocity: 25
   Homing: 0
   DetectionRange: 0
   BeamMode: 0
   MaxHeat: 2
-  HeatPerShot: 0.75
+  HeatPerShot: 0.5
   UsesAmmo: 0
   MaxAmmo: 0
   ReloadTime: 0
@@ -675,7 +679,8 @@ MonoBehaviour:
   ProjectilePrefab: {fileID: 6379950849718089022, guid: 3dc9e1111db30f149a54351f5904238c,
     type: 3}
   MaxCooldown: 0.5
-  ProjectileSpawnLocation: {fileID: 859120489}
+  ProjectileSpawnLocation:
+  - {fileID: 0}
   BulletVelocity: 25
   Homing: 0
   DetectionRange: 0
@@ -733,7 +738,8 @@ MonoBehaviour:
   ProjectilePrefab: {fileID: 6379950849718089022, guid: 3dc9e1111db30f149a54351f5904238c,
     type: 3}
   MaxCooldown: 0.5
-  ProjectileSpawnLocation: {fileID: 481976620}
+  ProjectileSpawnLocation:
+  - {fileID: 0}
   BulletVelocity: 25
   Homing: 0
   DetectionRange: 0
@@ -794,6 +800,36 @@ MonoBehaviour:
   TargetTransform: {fileID: 0}
   Target: {x: 0, y: 0}
   ManualTargetSet: 0
+--- !u!1 &675655579
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 675655580}
+  m_Layer: 8
+  m_Name: Right
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &675655580
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 675655579}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.006, y: -0.241, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 410570906}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &708605521
 GameObject:
   m_ObjectHideFlags: 0
@@ -1078,7 +1114,7 @@ Transform:
   m_Children:
   - {fileID: 1621851962}
   m_Father: {fileID: 1674611010}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &882592632
 MonoBehaviour:
@@ -1278,7 +1314,8 @@ MonoBehaviour:
   ProjectilePrefab: {fileID: 6379950849718089022, guid: 7b365edd183296d43af78bf7adad2885,
     type: 3}
   MaxCooldown: 0.125
-  ProjectileSpawnLocation: {fileID: 1376047687}
+  ProjectileSpawnLocation:
+  - {fileID: 0}
   BulletVelocity: 10
   Homing: 0
   DetectionRange: 0
@@ -1417,65 +1454,8 @@ MonoBehaviour:
   ProjectilePrefab: {fileID: 6379950849718089022, guid: 30329f2497505a34c81c7f185a386bdd,
     type: 3}
   MaxCooldown: 0.5
-  ProjectileSpawnLocation: {fileID: 1584532769}
-  BulletVelocity: 25
-  Homing: 0
-  DetectionRange: 0
-  BeamMode: 0
-  MaxHeat: 0
-  HeatPerShot: 0
-  UsesAmmo: 0
-  MaxAmmo: 0
-  ReloadTime: 0
-  DebugLog: 0
---- !u!1 &1064435511
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1064435512}
-  - component: {fileID: 1064435513}
-  m_Layer: 8
-  m_Name: Laser
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1064435512
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1064435511}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1439411789}
-  m_Father: {fileID: 1277883892}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1064435513
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1064435511}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5879922d89924557958f0818b8452f7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ProjectilePrefab: {fileID: 6379950849718089022, guid: 30329f2497505a34c81c7f185a386bdd,
-    type: 3}
-  MaxCooldown: 0.5
-  ProjectileSpawnLocation: {fileID: 1439411789}
+  ProjectileSpawnLocation:
+  - {fileID: 0}
   BulletVelocity: 25
   Homing: 0
   DetectionRange: 0
@@ -1496,7 +1476,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1094457112}
   m_Layer: 8
-  m_Name: GameObject
+  m_Name: SpawnLocation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1826,7 +1806,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1220205412}
   m_Layer: 8
-  m_Name: GameObject
+  m_Name: SpawnLocation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1846,56 +1826,6 @@ Transform:
   m_Father: {fileID: 1621851962}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1277883891
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1277883892}
-  - component: {fileID: 1277883893}
-  m_Layer: 8
-  m_Name: LaserRight
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1277883892
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1277883891}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.778, y: -0.139, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1064435512}
-  m_Father: {fileID: 1674611010}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1277883893
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1277883891}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa261363b1414184b5f2dfe32be96b51, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MinRotation: 0
-  MaxRotation: 0
-  RotationSpeed: 0
-  TargetTransform: {fileID: 0}
-  Target: {x: 0, y: 0}
-  ManualTargetSet: 0
 --- !u!1 &1343845698
 GameObject:
   m_ObjectHideFlags: 0
@@ -1995,7 +1925,8 @@ MonoBehaviour:
   ProjectilePrefab: {fileID: 6379950849718089022, guid: 3d96f37734810ff45a7fc9120ecdb3b9,
     type: 3}
   MaxCooldown: 4
-  ProjectileSpawnLocation: {fileID: 104885525}
+  ProjectileSpawnLocation:
+  - {fileID: 0}
   BulletVelocity: 10
   Homing: 1
   DetectionRange: 10
@@ -2034,36 +1965,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 952505771}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1439411788
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1439411789}
-  m_Layer: 8
-  m_Name: LaserCreationPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1439411789
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1439411788}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1064435512}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1584532768
@@ -2345,16 +2246,17 @@ MonoBehaviour:
   ProjectilePrefab: {fileID: 6379950849718089022, guid: 3d96f37734810ff45a7fc9120ecdb3b9,
     type: 3}
   MaxCooldown: 4
-  ProjectileSpawnLocation: {fileID: 1220205412}
+  ProjectileSpawnLocation:
+  - {fileID: 1220205412}
   BulletVelocity: 10
   Homing: 1
   DetectionRange: 10
   BeamMode: 0
   MaxHeat: 0
   HeatPerShot: 0
-  UsesAmmo: 0
-  MaxAmmo: 0
-  ReloadTime: 0
+  UsesAmmo: 1
+  MaxAmmo: 2
+  ReloadTime: 20
   DebugLog: 0
 --- !u!1 &1640707075
 GameObject:
@@ -2591,7 +2493,6 @@ Transform:
   - {fileID: 1184296856}
   - {fileID: 987387225}
   - {fileID: 370678405}
-  - {fileID: 1277883892}
   - {fileID: 303179824}
   - {fileID: 882592631}
   m_Father: {fileID: 0}
@@ -2709,7 +2610,8 @@ MonoBehaviour:
   ProjectilePrefab: {fileID: 6379950849718089022, guid: 7b365edd183296d43af78bf7adad2885,
     type: 3}
   MaxCooldown: 0.125
-  ProjectileSpawnLocation: {fileID: 1094457112}
+  ProjectileSpawnLocation:
+  - {fileID: 1094457112}
   BulletVelocity: 10
   Homing: 0
   DetectionRange: 0
@@ -2717,8 +2619,8 @@ MonoBehaviour:
   MaxHeat: 1
   HeatPerShot: 0
   UsesAmmo: 1
-  MaxAmmo: 5
-  ReloadTime: 2
+  MaxAmmo: 15
+  ReloadTime: 1
   DebugLog: 1
 --- !u!212 &1705088070
 SpriteRenderer:
@@ -3006,7 +2908,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2055571060}
   m_Layer: 8
-  m_Name: LaserCreationPoint
+  m_Name: Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

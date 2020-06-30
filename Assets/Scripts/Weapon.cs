@@ -1,11 +1,14 @@
-﻿using UnityEngine;
+﻿using System;
+using Sirenix.OdinInspector;
+using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
     [Header("Configuration")]
     public GameObject ProjectilePrefab;
     public float MaxCooldown;
-    public Transform ProjectileSpawnLocation;
+    [Required]
+    public Transform[] ProjectileSpawnLocation;
     public float BulletVelocity;
     public bool Homing;
     public float DetectionRange;
@@ -19,6 +22,7 @@ public class Weapon : MonoBehaviour
     public float ReloadTime;
     
     // Runtime
+    int spawnIndex;
     float timeUntilReloaded;
     float currentCooldown;
     float heat;
@@ -41,6 +45,11 @@ public class Weapon : MonoBehaviour
         rb = mainShip.GetComponent<Rigidbody2D>();
         ship = mainShip.GetComponent<Ship>();
         ammo = MaxAmmo;
+
+        if (ProjectileSpawnLocation.Length == 0)
+        {
+            throw new Exception("Need some spawn locations for weapon");
+        }
     }
 
     void Update()
@@ -86,6 +95,9 @@ public class Weapon : MonoBehaviour
                 }
             }
 
+            spawnIndex++;
+            spawnIndex %= ProjectileSpawnLocation.Length;
+            
             if (BeamMode)
             {
                 beamShot = true;
@@ -121,8 +133,9 @@ public class Weapon : MonoBehaviour
             }
 
             Transform beamTransform = BeamProjectile.transform; 
-            beamTransform.position = ProjectileSpawnLocation.position;
-            beamTransform.rotation = ProjectileSpawnLocation.rotation;
+            var spawnLocation = ProjectileSpawnLocation[spawnIndex]; 
+            beamTransform.position = spawnLocation.position;
+            beamTransform.rotation = spawnLocation.rotation;
         }
         else
         {
@@ -139,8 +152,10 @@ public class Weapon : MonoBehaviour
         // TODO: Maybe take into account rotational velocity? Feels weird when spinning without
         Vector2 projectileVelocity = (Vector2) transform.right.normalized * BulletVelocity + rb.velocity;
 
+        var spawnLocation = ProjectileSpawnLocation[spawnIndex].position; 
+        
         var projectileObj = Instantiate(ProjectilePrefab);
-        projectileObj.transform.position = ProjectileSpawnLocation.position;
+        projectileObj.transform.position = spawnLocation;
         projectileObj.layer = gameObject.layer;
 
         float projectileAngle = Mathf.Atan2(projectileVelocity.y, projectileVelocity.x);
