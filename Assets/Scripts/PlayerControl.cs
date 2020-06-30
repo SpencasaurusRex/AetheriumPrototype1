@@ -20,8 +20,10 @@ public class PlayerControl : MonoBehaviour
         assignedWeapon = ship.weapons[index];
     }
 
-    void Update()
+    void FixedUpdate()
     {
+        assignedWeapon.Target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        
         ship.Control(Input.GetAxisRaw("Vertical"), Input.GetAxisRaw("Horizontal"));
         
         
@@ -35,7 +37,7 @@ public class PlayerControl : MonoBehaviour
         }
 
         assignedWeapon.ManualTargetSet = true;
-        assignedWeapon.Target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        
         
         // TODO: Assign targets for manual weapons, even if not assigned?
         
@@ -51,5 +53,4 @@ public class PlayerControl : MonoBehaviour
             SwapWeapon(assignedIndex);
         }
     }
-    
 }

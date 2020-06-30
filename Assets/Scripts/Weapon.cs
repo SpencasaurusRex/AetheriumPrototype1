@@ -10,14 +10,28 @@ public class Weapon : MonoBehaviour
     public bool Homing;
     public float DetectionRange;
     public bool BeamMode;
-
+    
+    public float MaxHeat = 1;    
+    public float HeatPerShot;
+    
+    public bool UsesAmmo;
+    public int MaxAmmo;
+    public float ReloadTime;
+    
     // Runtime
+    float timeUntilReloaded;
     float currentCooldown;
+    float heat;
     Rigidbody2D rb;
     int shotCount;
     Ship ship;
     bool beamShot;
-
+    bool overheating;
+    bool reloading;
+    int ammo;
+        
+    public bool DebugLog;
+    
     GameObject BeamProjectile;
     
     void Start()
@@ -26,17 +40,52 @@ public class Weapon : MonoBehaviour
         var mainShip = transform.parent.parent; 
         rb = mainShip.GetComponent<Rigidbody2D>();
         ship = mainShip.GetComponent<Ship>();
+        ammo = MaxAmmo;
     }
 
     void Update()
     {
         currentCooldown -= Time.deltaTime;
+        heat = Mathf.Max(0, heat - Time.deltaTime);
+        if (heat <= 0)
+        {
+            overheating = false;
+        }
+
+        if (reloading)
+        {
+            timeUntilReloaded = Mathf.Max(0, timeUntilReloaded - Time.deltaTime);
+            if (timeUntilReloaded <= 0)
+            {
+                reloading = false;
+                ammo = MaxAmmo;
+            }
+        }
+
+        if (DebugLog)
+            Debug.Log($"a:{ammo}/{MaxAmmo} h:{heat}/{MaxHeat} Rel:{reloading} Ovrht:{overheating}");
     }
 
     public bool TryShoot()
     {
-        if (currentCooldown <= 0)
+        if (!reloading && !overheating && currentCooldown <= 0)
         {
+            heat += HeatPerShot;
+            if (heat > MaxHeat)
+            {
+                overheating = true;                
+            }
+
+            if (UsesAmmo)
+            {
+                ammo--;
+                if (ammo == 0)
+                {
+                    timeUntilReloaded = ReloadTime;
+                    reloading = true;
+                }
+            }
+
             if (BeamMode)
             {
                 beamShot = true;

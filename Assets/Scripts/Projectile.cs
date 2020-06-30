@@ -34,7 +34,6 @@ public class Projectile : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        Debug.Log(anim.GetCurrentAnimatorStateInfo(0).length);
     }
 
     void FixedUpdate()

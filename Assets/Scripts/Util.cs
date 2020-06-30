@@ -51,7 +51,7 @@ public static class Util
     public static int GetOpposingTeamLayerMask(int teamLayer)
     {
         int allTeams = LayerMask.GetMask("Team1", "Team2", "Team3", "Team4", 
-            "Team1Shield", "Team2Shield", "Team3Shield", "Team4Shield");
+            "Team1Projectile", "Team2Projectile", "Team3Projectile", "Team4Projectile");
         return allTeams - LayerMask.GetMask(LayerMask.LayerToName(teamLayer))
         - LayerMask.GetMask(LayerMask.LayerToName(teamLayer + 4));
     }

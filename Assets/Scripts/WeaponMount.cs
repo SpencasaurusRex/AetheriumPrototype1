@@ -21,7 +21,7 @@ public class WeaponMount : MonoBehaviour
         MaxRotation = Util.NormalizeAngleDegrees(MaxRotation, -180, 180);
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (TargetTransform)
         {
@@ -36,6 +36,7 @@ public class WeaponMount : MonoBehaviour
 
     void RotateTowardTarget()
     {
+        // Target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 targetVector = Target - (Vector2)transform.position;
 
         var currentDegrees = Util.NormalizeAngleDegrees(transform.rotation.eulerAngles.z);

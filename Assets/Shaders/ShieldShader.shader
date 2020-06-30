@@ -54,10 +54,10 @@
 
             float4 frag (v2f i) : SV_Target
             {
-                float2 pixels = float2(_Rows, _Cols);
-                float2 uv = i.uv * pixels;
-                uv = round(uv);
-                uv /= pixels;
+                //float2 pixels = float2(_Rows, _Cols);
+                float2 uv = i.uv;// * pixels;
+                //uv = round(uv);
+                //uv /= pixels;
             
                 fixed4 c = tex2D(_MainTex, i.uv);
                 float dist = length(float2(uv) - float2(0.5, 0.5));
