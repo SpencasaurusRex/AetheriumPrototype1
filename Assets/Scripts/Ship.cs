@@ -15,6 +15,8 @@ public class Ship : MonoBehaviour
     [HideInInspector]
     public List<Collider2D> Colliders = new List<Collider2D>();
 
+    public int Team;
+    
     // Runtime variables
     float bulletCooldown;
 

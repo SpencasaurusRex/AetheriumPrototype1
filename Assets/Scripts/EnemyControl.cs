@@ -9,6 +9,8 @@ public class EnemyControl : MonoBehaviour
     IBehaviour currentBehaviour;
     List<IBehaviourTrigger> behaviourTriggers;
     WeaponControl weaponControl;
+    ScenarioController scenario;
+    Rigidbody2D rb;
     
     void OnEnable()
     {
@@ -20,7 +22,11 @@ public class EnemyControl : MonoBehaviour
     {
         ship = GetComponent<Ship>();
         weaponControl = GetComponent<WeaponControl>();
+        rb = GetComponent<Rigidbody2D>();
         currentBehaviour = GetCurrentBehaviour();
+        
+        // TODO: Pass this in?
+        scenario = ScenarioController.Instance;
     }
     
     void Update()
@@ -29,7 +35,7 @@ public class EnemyControl : MonoBehaviour
         {
             currentBehaviour = GetCurrentBehaviour();
         }
-        currentBehaviour.Update(weaponControl, ship);
+        currentBehaviour.Update(weaponControl, ship, scenario, rb);
     }
 
     IBehaviour GetCurrentBehaviour()

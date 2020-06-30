@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public static class Util
 {
@@ -79,5 +80,28 @@ public static class Util
 
     public static bool RotateTowardsAngleDegrees(float currentAngle, float targetAngle) =>
         RotateTowardsAngleRadians(currentAngle * Mathf.Deg2Rad, targetAngle * Mathf.Deg2Rad);
+
+    public const int NumberOfTeams = 4;
+    
+    public static float AngleDistanceDegrees(float a, float b) {
+        float phi = Mathf.Abs(b - a) % 360;       // This is either the distance or 360 - distance
+        return phi > 180 ? 360 - phi : phi;
+    }
+    
+    public static float AngleDistanceRadians(float a, float b) {
+        float phi = Mathf.Abs(b - a) % TwoPi;       // This is either the distance or 2Pi - distance
+        return phi > Mathf.PI ? TwoPi - phi : phi;
+    }
+    
+    public static int GetTeamIndexFromLayer(int layer)
+    {
+        string[] teamLayerNames = { "Team1", "Team2", "Team3", "Team4" };
+        for (int i = 0; i < teamLayerNames.Length; i++)
+        {
+            if (layer == LayerMask.NameToLayer(teamLayerNames[i]))
+                return i;
+        }
+        throw new Exception("Not a valid team layer: " + layer);
+    }
 
 }

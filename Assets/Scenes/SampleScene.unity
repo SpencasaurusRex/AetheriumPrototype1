@@ -841,7 +841,7 @@ GameObject:
   - component: {fileID: 708605523}
   - component: {fileID: 708605522}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -856,7 +856,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 708605521}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d4db735dd3496a48aa3fc01830d2524, type: 3}
+  m_Script: {fileID: 11500000, guid: 64ac2b09f6a84151a64cc03967e6257f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &708605523
@@ -2358,6 +2358,7 @@ MonoBehaviour:
   weapons:
   - {fileID: 0}
   Colliders: []
+  Team: 0
 --- !u!4 &1640707079
 Transform:
   m_ObjectHideFlags: 0
@@ -2506,6 +2507,7 @@ MonoBehaviour:
     Missile: 1
   weapons: []
   Colliders: []
+  Team: 0
 --- !u!4 &1674611010
 Transform:
   m_ObjectHideFlags: 0
@@ -2648,7 +2650,7 @@ MonoBehaviour:
   UsesAmmo: 1
   MaxAmmo: 15
   ReloadTime: 1
-  DebugLog: 1
+  DebugLog: 0
 --- !u!212 &1705088070
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2875,6 +2877,7 @@ MonoBehaviour:
     Missile: 1
   weapons: []
   Colliders: []
+  Team: 0
 --- !u!4 &1722434308
 Transform:
   m_ObjectHideFlags: 0
