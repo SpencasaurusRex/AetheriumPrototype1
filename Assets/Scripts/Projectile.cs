@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 
@@ -13,18 +14,18 @@ public class Projectile : MonoBehaviour
     public float RotationSpeed;
     public float Speed;
     
-    Light2D light;
+    Light2D _light;
     Rigidbody2D rb;
     Animator anim;
     static readonly int Hit = Animator.StringToHash("Hit");
-    Collider2D collider;
+    Collider2D _collider;
     
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        collider = GetComponent<Collider2D>();
-        light = GetComponent<Light2D>();
+        _collider = GetComponent<Collider2D>();
+        _light = GetComponent<Light2D>();
     }
 
     void Update()
@@ -70,10 +71,9 @@ public class Projectile : MonoBehaviour
         transform.position = contactPoint.point;
         transform.rotation = Quaternion.Euler(0, 0, contactPoint.normal.Angle() * Mathf.Rad2Deg + 180f);
         
-        collider.enabled = false;
+        _collider.enabled = false;
         StartCoroutine(DestroyAfterAnimation());
         var fadeout = gameObject.AddComponent<FadeoutLight>();
-        Debug.Log(anim.GetCurrentAnimatorStateInfo(0).length);
         fadeout.FadeTime = 0.2f;
         enabled = false;
     }

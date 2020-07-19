@@ -82,12 +82,22 @@ public static class Util
         RotateTowardsAngleRadians(currentAngle * Mathf.Deg2Rad, targetAngle * Mathf.Deg2Rad);
 
     public const int NumberOfTeams = 4;
-    
+
+    public static float SignedAngleDistanceDegrees(float a, float b)
+    {
+        return (a - b + 540) % 360 - 180;        
+    }
+
+    public static float SignedAngleDistanceRadians(float a, float b)
+    {
+        return (a - b + Mathf.PI * 3) % TwoPi - Mathf.PI;
+    }
+
     public static float AngleDistanceDegrees(float a, float b) {
         float phi = Mathf.Abs(b - a) % 360;       // This is either the distance or 360 - distance
         return phi > 180 ? 360 - phi : phi;
     }
-    
+
     public static float AngleDistanceRadians(float a, float b) {
         float phi = Mathf.Abs(b - a) % TwoPi;       // This is either the distance or 2Pi - distance
         return phi > Mathf.PI ? TwoPi - phi : phi;

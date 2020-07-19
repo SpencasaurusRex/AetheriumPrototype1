@@ -11,6 +11,7 @@ public class EnemyControl : MonoBehaviour
     WeaponControl weaponControl;
     ScenarioController scenario;
     Rigidbody2D rb;
+    Engine engine;
     
     void OnEnable()
     {
@@ -23,6 +24,7 @@ public class EnemyControl : MonoBehaviour
         ship = GetComponent<Ship>();
         weaponControl = GetComponent<WeaponControl>();
         rb = GetComponent<Rigidbody2D>();
+        engine = GetComponent<Engine>();
         currentBehaviour = GetCurrentBehaviour();
         
         // TODO: Pass this in?
@@ -35,7 +37,7 @@ public class EnemyControl : MonoBehaviour
         {
             currentBehaviour = GetCurrentBehaviour();
         }
-        currentBehaviour.Update(weaponControl, ship, scenario, rb);
+        currentBehaviour.Update(weaponControl, ship, scenario, rb, engine);
     }
 
     IBehaviour GetCurrentBehaviour()

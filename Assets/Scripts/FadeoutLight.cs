@@ -4,7 +4,7 @@ using UnityEngine.Experimental.Rendering.Universal;
 public class FadeoutLight : MonoBehaviour
 {
     public float FadeTime;
-    Light2D light;
+    Light2D _light;
     
     float startingIntensity;
     float t;
@@ -17,14 +17,14 @@ public class FadeoutLight : MonoBehaviour
             return;
         }
 
-        light = l;
-        startingIntensity = light.intensity;
+        _light = l;
+        startingIntensity = _light.intensity;
         t = FadeTime;
     }
 
     void Update()
     {
         t -= Time.deltaTime;
-        light.intensity = Mathf.Max(t / FadeTime * startingIntensity, 0);
+        _light.intensity = Mathf.Max(t / FadeTime * startingIntensity, 0);
     }
 }

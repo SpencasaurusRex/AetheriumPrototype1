@@ -7,7 +7,8 @@ namespace AI
     {
         public bool Locked => false;
         
-        public void Update(WeaponControl weaponControl, Ship ship, ScenarioController scenario, Rigidbody2D rb)
+        public void Update(WeaponControl weaponControl, Ship ship, ScenarioController scenario, 
+            Rigidbody2D rb, Engine engine)
         {
             // TODO: Optimize enemy checks, don't do every frame
             // TODO: don't recalculate opposing ships, update it with events from scenario,
@@ -67,7 +68,7 @@ namespace AI
                 
             }
             
-            rotationInput = TurnTowards(ship, rb, targetOffset);
+            rotationInput = TurnTowards(ship, rb, targetOffset, engine);
             ship.Control(thrustInput, rotationInput);
         }
 
@@ -76,16 +77,32 @@ namespace AI
             // TODO
         }
 
-        float TurnTowards(Ship ship, Rigidbody2D rb, Vector3 offset)
+        float TurnTowards(Ship ship, Rigidbody2D rb, Vector3 offset, Engine engine)
         {
             var targetAngle = Mathf.Atan2(offset.y, offset.x);
             var currentAngle = ship.transform.rotation.eulerAngles.z * Mathf.Deg2Rad;
-            float dir = Util.RotateTowardsAngleRadians(currentAngle, targetAngle) ? 1 : -1;
-            float dist = Util.AngleDistanceRadians(targetAngle, currentAngle) * 0.2f;
-            float vel = rb.angularVelocity * 0.005f;
-            // Debug.Log($"{dir} {dist} {rb.angularVelocity * 0.5}");
             
-            return Mathf.Clamp(dir * dist + vel, -1, 1);
+            float m = rb.mass;
+            float f = 1 + engine.CancelRotationBonus;
+            float v_0 = rb.angularVelocity;
+            var destinationAngle = -0.5f * m / f * v_0 * v_0 + currentAngle; 
+            Debug.Log($"{currentAngle} {targetAngle} {destinationAngle}");
+            var currentSign = Mathf.Sign(Util.SignedAngleDistanceRadians(targetAngle, currentAngle));
+            var breakSign = Mathf.Sign(Util.SignedAngleDistanceRadians(targetAngle, destinationAngle));
+            
+            float torque;
+            if (currentSign != breakSign)
+            {
+                // Start breaking
+                torque = Util.RotateTowardsAngleRadians(currentAngle, targetAngle) ? 1 : -1;
+            }
+            else
+            {
+                // Keep accelerating
+                torque = Util.RotateTowardsAngleRadians(currentAngle, targetAngle) ? -1 : 1;
+            }
+            
+            return torque;
         }
     }
 }

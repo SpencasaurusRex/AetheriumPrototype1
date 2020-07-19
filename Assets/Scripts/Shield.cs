@@ -15,13 +15,13 @@ public class Shield : MonoBehaviour
     float strength;
     float lastHit;
 
-    Collider2D collider;
+    Collider2D _collider;
     SpriteRenderer sr;
 
     void Start()
     {
         strength = MaxStrength;
-        collider = GetComponent<Collider2D>();
+        _collider = GetComponent<Collider2D>();
         sr = GetComponent<SpriteRenderer>();
     }
     
@@ -63,7 +63,7 @@ public class Shield : MonoBehaviour
 
     void SetShieldActive(bool active)
     {
-        collider.enabled = active;
+        _collider.enabled = active;
         sr.enabled = active;
     }
 }
