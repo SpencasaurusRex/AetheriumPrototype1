@@ -79,7 +79,7 @@ namespace AI
 
         float TurnTowards(Ship ship, Rigidbody2D rb, Vector3 offset, Engine engine)
         {
-            var targetAngle = Mathf.Atan2(offset.y, offset.x);
+            var targetAngle = Mathf.Atan2(offset.y, offset.x) + Mathf.PI;
             var currentAngle = ship.transform.rotation.eulerAngles.z * Mathf.Deg2Rad;
             
             float m = rb.mass;

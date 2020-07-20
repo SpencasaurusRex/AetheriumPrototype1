@@ -2504,6 +2504,7 @@ MonoBehaviour:
   CancelRotationBonus: 0.2
   SidewaysCancel: 1
   RotationalFriction: 0.99
+  angularVelocity: 0
 --- !u!114 &1640707082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2613,7 +2614,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1674611007}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.021, y: -0.086, z: 0}
+  m_LocalPosition: {x: -0.014, y: -1.467, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1184296856}
@@ -2671,11 +2672,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Thrust: 4
   BackwardPenalty: 0.5
-  RotationalThrust: 0.75
+  RotationalThrust: 0.35
   CancelThrustBonus: 0.2
   CancelRotationBonus: 0.2
   SidewaysCancel: 1
   RotationalFriction: 0.99
+  angularVelocity: 0
 --- !u!114 &1674611014
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2955,6 +2957,7 @@ MonoBehaviour:
   CancelRotationBonus: 0.2
   SidewaysCancel: 1
   RotationalFriction: 0.99
+  angularVelocity: 0
 --- !u!114 &1722434305
 MonoBehaviour:
   m_ObjectHideFlags: 0
